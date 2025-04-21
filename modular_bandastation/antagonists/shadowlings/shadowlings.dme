@@ -1,0 +1,6 @@
+#include "code\_defines.dm"
+#include "code\actions\shadowling_glare.dm"
+#include "code\actions\shadowling_spell.dm"
+#include "code\misc\shadowling_antag.dm"
+#include "code\misc\shadowling_mood.dm"
+#include "code\misc\shadowling_species.dm"
