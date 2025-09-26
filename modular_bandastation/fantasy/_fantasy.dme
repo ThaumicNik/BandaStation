@@ -1,0 +1,3 @@
+#include "_fantasy.dm"
+
+#include "code\obj\floating_candles.dm"

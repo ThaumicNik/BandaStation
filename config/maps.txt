@@ -45,6 +45,10 @@ map cyberiad
 	votable
 endmap
 
+map magic_academy
+	maxplayers 100
+endmap
+
 # Debug-only maps.
 
 map gateway_test

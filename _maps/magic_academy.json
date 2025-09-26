@@ -1,0 +1,16 @@
+{
+	"version": 1,
+	"map_name": "Magic Academy",
+	"map_path": "map_files",
+	"map_file": "magic_academy.dmm",
+	"fluff_name": "Волтерранская Академия",
+	"ignored_unit_tests": [
+		"/datum/unit_test/cargo_dep_order_locations",
+		"/datum/unit_test/job_roundstart_spawnpoints",
+		"/datum/unit_test/required_map_items",
+		"/datum/unit_test/spy_bounty"
+	],
+	"shuttles": {
+		"cargo": "cargo_delta"
+	}
+}
