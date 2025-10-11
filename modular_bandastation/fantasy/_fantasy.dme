@@ -1,3 +1,4 @@
 #include "_fantasy.dm"
 
 #include "code\obj\floating_candles.dm"
+#include "code\area\academy_areas.dm"

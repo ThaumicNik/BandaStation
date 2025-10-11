@@ -2,7 +2,7 @@
 /obj/structure/floating_candles
 	name = "floating candles"
 	desc = "Левитирующая кучка свечей, будто насмехающаяся над жалкими Спящими, которым нужно электричество для освещения."
-	icon = 'modular_bandastation/objects/icons/obj/structures/floating_candles.dmi'
+	icon = 'modular_bandastation/fantasy/icons/floating_candles.dmi'
 	icon_state = "six"
 	anchored = TRUE
 	layer = WALL_OBJ_LAYER
