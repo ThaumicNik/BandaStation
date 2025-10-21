@@ -3,6 +3,14 @@
 	name = "Academy Area"
 	icon = 'icons/area/areas_station.dmi'
 
+// MARK: Снаружи
+/area/awaymission/academy/outside
+	name = "Снаружи академии"
+	icon = 'icons/area/areas_away_missions.dmi'
+	icon_state = "awaycontent1"
+	static_lighting = FALSE
+	base_lighting_alpha = 255
+
 // MARK: Паблики
 
 /area/awaymission/academy/public
