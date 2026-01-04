@@ -5,18 +5,18 @@ on:
 
 jobs:
   linters:
-    runs-on: [self-hosted]
+    runs-on: ubuntu-24.04
     timeout-minutes: 5
 
     steps:
-      - uses: actions/checkout@v4.3.0 # BANDASTATION EDIT 5 -> 4.3.0
+      - uses: actions/checkout@v6
       - name: Install required packages
         run: |
           sudo apt-get update
           sudo apt-get install -y zlib1g
       # Your existing steps
       - name: Restore SpacemanDMM cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/SpacemanDMM
           key: ${{ runner.os }}-spacemandmm-${{ hashFiles('dependencies.sh') }}
@@ -25,28 +25,26 @@ jobs:
       - name: Setup Bun
         uses: ./.github/actions/setup_bun
       - name: Restore Bootstrap cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: tools/bootstrap/.cache
-          key: ${{ runner.os }}-bootstrap-${{ hashFiles('tools/requirements.txt') }}
+          key: ${{ runner.os }}-bootstrap-${{ hashFiles('/tools/requirements.txt') }}
           restore-keys: |
             ${{ runner.os }}-bootstrap-
       - name: Restore Rust cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.cargo
-          key: ${{ runner.os }}-rust-${{ hashFiles('tools/ci/ci_dependencies.sh')}}
+          key: ${{ runner.os }}-rust-${{ hashFiles('/tools/ci/ci_dependencies.sh')}}
           restore-keys: |
             ${{ runner.os }}-rust-
       - name: Restore Cutter cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: tools/icon_cutter/cache
           key: ${{ runner.os }}-cutter-${{ hashFiles('dependencies.sh') }}
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v5
-        env:
-          DOTNET_INSTALL_DIR: "./_work/.dotnet"
         with:
           dotnet-version: 9.x
       - name: Install OpenDream
@@ -74,7 +72,6 @@ jobs:
       - name: Ticked File Enforcement
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
         run: |
-          bash tools/bandastation_check_grep.sh # BANDASTATION EDIT ADDITION - checking modular_bandastation code
           tools/bootstrap/python tools/ticked_file_enforcement/ticked_file_enforcement.py < tools/ticked_file_enforcement/schemas/tgstation_dme.json
           tools/bootstrap/python tools/ticked_file_enforcement/ticked_file_enforcement.py < tools/ticked_file_enforcement/schemas/unit_tests.json
       - name: Check Define Sanity

@@ -29,6 +29,8 @@
 	var/shield_icon = "shield-red"
 	/// Charges the shield should start with.
 	var/charges
+	/// Whether or not we allow this shield to block overwhelming attacks, such as from mechs.
+	var/block_overwhelming_attacks = FALSE
 
 /obj/item/mod/module/energy_shield/Initialize(mapload)
 	. = ..()
@@ -43,6 +45,7 @@
 		charge_recovery = charge_recovery, \
 		lose_multiple_charges = lose_multiple_charges, \
 		starting_charges = charges, \
+		can_block_overwhelming = block_overwhelming_attacks, \
 		shield_icon_file = shield_icon_file, \
 		shield_icon = shield_icon)
 	RegisterSignal(mod.wearer, COMSIG_LIVING_CHECK_BLOCK, PROC_REF(shield_reaction))
@@ -64,7 +67,7 @@
 	SIGNAL_HANDLER
 
 	if(mod.hit_reaction(owner, hitby, attack_text, 0, damage, attack_type))
-		drain_power(use_energy_cost)
+		drain_power(use_energy_cost + use_energy_cost * (attack_type == OVERWHELMING_ATTACK ? (damage/100) : 0))
 		return SUCCESSFUL_BLOCK
 	return NONE
 
@@ -80,6 +83,7 @@
 	max_charges = 5
 	recharge_start_delay = 20 SECONDS
 	charge_increment_delay = 3 SECONDS
+	block_overwhelming_attacks = TRUE // It's magic, bitch
 	shield_icon_file = 'icons/effects/magic.dmi'
 	shield_icon = "mageshield"
 	required_slots = list()
@@ -386,7 +390,7 @@
 	var/datum/storage/holding_storage = mod.loc.atom_storage
 	if(!holding_storage || holding_storage.max_specific_storage >= mod.w_class)
 		return
-	mod.forceMove(drop_location())
+	mod.forceMove(mod.drop_location())
 
 /obj/item/mod/module/demoralizer
 	name = "MOD psi-echo demoralizer module"
@@ -419,7 +423,7 @@
 	incompatible_modules = list(/obj/item/mod/module/infiltrator, /obj/item/mod/module/welding/syndicate, /obj/item/mod/module/welding, /obj/item/mod/module/headprotector)
 	required_slots = list(ITEM_SLOT_FEET, ITEM_SLOT_HEAD, ITEM_SLOT_OCLOTHING)
 	/// List of traits added when the suit is activated
-	var/list/traits_to_add = list(TRAIT_SILENT_FOOTSTEPS, TRAIT_UNKNOWN, TRAIT_HEAD_INJURY_BLOCKED)
+	var/list/traits_to_add = list(TRAIT_SILENT_FOOTSTEPS, TRAIT_UNKNOWN_APPEARANCE, TRAIT_UNKNOWN_VOICE, TRAIT_HEAD_INJURY_BLOCKED)
 
 /obj/item/mod/module/infiltrator/on_install()
 	. = ..()
@@ -500,7 +504,7 @@
 	var/list/things_to_disrupt = list(target)
 	if(isliving(target))
 		var/mob/living/live_target = target
-		things_to_disrupt += live_target.get_all_gear()
+		things_to_disrupt += live_target.get_all_gear(INCLUDE_PROSTHETICS|INCLUDE_ABSTRACT|INCLUDE_ACCESSORIES)
 
 	for(var/atom/disrupted as anything in things_to_disrupt)
 		if(disrupted.on_saboteur(src, 1 MINUTES))

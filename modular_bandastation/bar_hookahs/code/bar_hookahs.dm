@@ -179,7 +179,7 @@
 	if(transferred <= 0)
 		to_chat(user, span_warning("В [src.declent_ru(PREPOSITIONAL)] нет места!"))
 		return
-		
+
 	user.visible_message(
 		span_notice("[user] переливает что-то в [src.declent_ru(NOMINATIVE)]."),
 		span_notice("Вы переливаете [transferred] единиц жидкости в [src.declent_ru(NOMINATIVE)].")
@@ -324,7 +324,7 @@
 	if(hookah_mouthpiece)
 		hookah_mouthpiece.source_hookah = null
 		hookah_mouthpiece.disconnect()
-		qdel(hookah_mouthpiece)
+		QDEL_NULL(hookah_mouthpiece)
 
 	set_light(0)
 	return ..()
@@ -459,7 +459,7 @@
 		if(!COOLDOWN_FINISHED(src, inhale_cooldown) || transferred > BASE_INHALE_LIMIT)
 			living_user.visible_message(span_warning(pick("[living_user] закашливается!", "[living_user] морщится, откашливаясь.", "[living_user] задыхается!")), span_warning(pick("Голова кружится...", "Вы закашливаетесь, морщась от острого покалывания в горле.", "Вы задыхаетесь!")))
 			living_user.emote("cough")
-			living_user.adjustStaminaLoss(BASE_COUGH_STAMINA_LOSS * (transferred / BASE_INHALE_LIMIT))
+			living_user.adjust_stamina_loss(BASE_COUGH_STAMINA_LOSS * (transferred / BASE_INHALE_LIMIT))
 
 		switch(smoke_efficiency * 100)
 			if(-INFINITY to 20)
@@ -490,7 +490,7 @@
 		return
 
 	var/mob/living/carbon/human/human_user = living_user
-	human_user.adjustStaminaLoss(BASE_COUGH_STAMINA_LOSS * 4)
+	human_user.adjust_stamina_loss(BASE_COUGH_STAMINA_LOSS * 4)
 
 /obj/item/hookah_mouthpiece/proc/delayed_puff(mob/user, amount)
 	var/datum/effect_system/fluid_spread/smoke/chem/quick/puff = new
@@ -509,7 +509,7 @@
 	. = ..()
 	. += span_info("В кучке три кубика.")
 
-/obj/machinery/vending/cigarette/Initialize()
+/obj/machinery/vending/cigarette/Initialize(mapload)
 	premium += list(
 		/obj/item/hookah_coals = 3,
 	)

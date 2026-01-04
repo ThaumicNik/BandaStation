@@ -43,10 +43,12 @@
 @include meta.load-css('./interfaces/Roulette.scss');
 @include meta.load-css('./interfaces/Safe.scss');
 @include meta.load-css('./interfaces/Techweb.scss');
+@include meta.load-css('./interfaces/TicketManager.scss'); // BANDASTATION
 @include meta.load-css('./interfaces/Trophycase.scss');
 @include meta.load-css('./interfaces/Uplink.scss');
-@include meta.load-css('./interfaces/Who.scss'); // BANDASTATION ADDITION
+@include meta.load-css('./interfaces/Who.scss'); // BANDASTATION
 @include meta.load-css('./interfaces/DetectiveBoard.scss');
+@include meta.load-css('./interfaces/ColorPicker.scss');
 
 // Layouts
 @include meta.load-css('./layouts/Layout.scss');
@@ -55,7 +57,7 @@
 @include meta.load-css('./layouts/TitleBar.scss');
 @include meta.load-css('./layouts/Window.scss');
 
-@include meta.load-css('highlight.js/scss/github-dark.scss');
+@include meta.load-css('~highlight.js/scss/a11y-dark.scss');
 
 // NT Theme
 .Layout__content {

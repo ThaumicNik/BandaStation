@@ -167,6 +167,9 @@ GLOBAL_VAR(restart_counter)
 
 	load_poll_data()
 
+	// Initialize RETA system - code/modules/reta/reta_system.dm
+	reta_init_config()
+
 	LoadVerbs(/datum/verbs/menu)
 
 	if(fexists(RESTART_COUNTER_PATH))
@@ -183,6 +186,10 @@ GLOBAL_VAR(restart_counter)
 	setup_autowiki()
 	#endif
 
+	#ifdef PERFORMANCE_TESTS
+	queue_performance_tests()
+	#endif
+
 /world/proc/HandleTestRun()
 	//trigger things to run the whole process
 	Master.sleep_offline_after_initializations = FALSE
@@ -195,6 +202,25 @@ GLOBAL_VAR(restart_counter)
 	cb = VARSET_CALLBACK(SSticker, force_ending, ADMIN_FORCE_END_ROUND)
 #endif
 	SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_addtimer), cb, 10 SECONDS))
+
+/world/proc/queue_performance_tests()
+	//trigger things to run the whole process
+	Master.sleep_offline_after_initializations = FALSE
+	SSticker.start_immediately = TRUE
+	var/datum/callback/cb = CALLBACK(src, PROC_REF(run_performance_tests))
+	SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_addtimer), cb, 10 SECONDS))
+
+/// Stub proc intended to be filled with code that does some test, profiles it, and logs that test.
+/// Intended to be used with line by line macros, but you should live your truth
+/world/proc/run_performance_tests()
+	// In case we do somethin that could otherwise end the round
+	SSticker.delay_end = TRUE
+	// Your code goes here
+
+	// Logging goes here
+	// (sample line by line) stat_tracking_export_to_csv_later("file_name.csv", GLOB.cost_list, GLOB.count_list)
+	SSticker.delay_end = FALSE
+	shutdown()
 
 /// Returns a list of data about the world state, don't clutter
 /world/proc/get_world_state_for_logging()
@@ -211,19 +237,23 @@ GLOBAL_VAR(restart_counter)
 		var/realtime = world.realtime
 		var/texttime = time2text(realtime, "YYYY/MM/DD", TIMEZONE_UTC)
 		GLOB.log_directory = "data/logs/[texttime]/round-"
+		GLOB.logis_logs_directory = "data/logis_logs/[texttime]/round-" // BANDASTATION ADDITION - Logis
 		GLOB.picture_logging_prefix = "L_[time2text(realtime, "YYYYMMDD", TIMEZONE_UTC)]_"
 		GLOB.picture_log_directory = "data/picture_logs/[texttime]/round-"
 		if(GLOB.round_id)
 			GLOB.log_directory += "[GLOB.round_id]"
+			GLOB.logis_logs_directory += "[GLOB.round_id]" // BANDASTATION ADDITION - Logis
 			GLOB.picture_logging_prefix += "R_[GLOB.round_id]_"
 			GLOB.picture_log_directory += "[GLOB.round_id]"
 		else
 			var/timestamp = replacetext(time_stamp(), ":", ".")
 			GLOB.log_directory += "[timestamp]"
+			GLOB.logis_logs_directory += "[timestamp]" // BANDASTATION ADDITION - Logis
 			GLOB.picture_log_directory += "[timestamp]"
 			GLOB.picture_logging_prefix += "T_[timestamp]_"
 	else
 		GLOB.log_directory = "data/logs/[override_dir]"
+		GLOB.logis_logs_directory += "data/logis_logs/[override_dir]" // BANDASTATION ADDITION - Logis
 		GLOB.picture_logging_prefix = "O_[override_dir]_"
 		GLOB.picture_log_directory = "data/picture_logs/[override_dir]"
 
@@ -376,8 +406,9 @@ GLOBAL_VAR(restart_counter)
 	var/hostedby
 	if(config)
 		var/server_name = CONFIG_GET(string/servername)
-		if (server_name)
-			new_status += "<b>[server_name]</b> "
+		if(server_name)
+			var/discord_url = CONFIG_GET(string/discord_url)
+			new_status += discord_url ? "<a href=\"[discord_url]\"><b>[server_name]</b></a>" : "<b>[server_name]</b>" // BANDASTATION EDIT
 		if(CONFIG_GET(flag/allow_respawn))
 			features += "respawn" // show "respawn" regardless of "respawn as char" or "free respawn"
 		if(!CONFIG_GET(flag/allow_ai))
@@ -414,7 +445,6 @@ GLOBAL_VAR(restart_counter)
 		new_status += "<br>Map: <b>[SSmapping.current_map.map_path == CUSTOM_MAP_PATH ? "Uncharted Territory" : SSmapping.current_map.map_name]</b>"
 	if(SSmap_vote.next_map_config)
 		new_status += "[SSmapping.current_map ? " | " : "<br>"]Next: <b>[SSmap_vote.next_map_config.map_path == CUSTOM_MAP_PATH ? "Uncharted Territory" : SSmap_vote.next_map_config.map_name]</b>"
-
 	status = new_status
 
 /world/proc/update_hub_visibility(new_visibility)
