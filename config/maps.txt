@@ -51,7 +51,7 @@ map kilostation
 endmap
 
 map magic_academy
-	maxplayers 100
+	minplayers 50
 endmap
 
 # Debug-only maps.

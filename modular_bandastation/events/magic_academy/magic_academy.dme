@@ -1,0 +1,2 @@
+#include "code/area/academy_areas.dm"
+#include "code/obj/floating_candles.dm"
