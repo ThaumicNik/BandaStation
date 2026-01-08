@@ -4,6 +4,8 @@
 	"map_path": "map_files",
 	"map_file": "magic_academy.dmm",
 	"fluff_name": "Волтерранская Академия",
+	"space_ruin_levels": 0,
+	"space_empty_levels": 0,
 	"main_floor": 1,
 	"planetary": 1,
 	"ignored_unit_tests": [
@@ -21,22 +23,20 @@
 	],
 	"traits": [
 		{
-			"Linkage": null,
 			"Gravity": true,
 			"Baseturf": "/turf/open/misc/asteroid",
 			"No Parallax": true
 		},
 		{
-			"Linkage": null,
 			"Gravity": true,
 			"Baseturf": "/turf/open/openspace",
 			"No Parallax": true
 		},
 		{
-			"Linkage": null,
 			"Gravity": true,
 			"Baseturf": "/turf/open/openspace",
 			"No Parallax": true
 		}
-	]
+	],
+	"minetype": "none"
 }

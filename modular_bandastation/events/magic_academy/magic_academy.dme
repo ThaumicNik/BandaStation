@@ -1,2 +1,6 @@
 #include "code/area/academy_areas.dm"
 #include "code/obj/floating_candles.dm"
+#include "code/obj/decor_props.dm"
+#include "code/turf/academy_floors.dm"
+#include "code/turf/academy_walls.dm"
+#include "code/obj/ramps.dm"
