@@ -107,6 +107,8 @@
 #include "code/items/maintenance_loot.dm"
 #include "code/items/bodyparts/strongarm_bodypart.dm"
 #include "code/items/bodyparts/strongleg_bodypart.dm"
+#include "code/items/occultic/occult_book.dm"
+#include "code/items/occultic/lore_books.dm"
 
 #include "code/machinery/nuclear_bomb.dm"
 #include "code/machinery/papershredder.dm"
@@ -131,3 +133,12 @@
 #include "code/structures/crates_lockers/closets/secure/nanotrasen_representative.dm"
 
 #include "code/mecha/mecha.dm"
+// BEGIN_INTERNALS
+// END_INTERNALS
+// BEGIN_FILE_DIR
+#define FILE_DIR .
+// END_FILE_DIR
+// BEGIN_PREFERENCES
+// END_PREFERENCES
+// BEGIN_INCLUDE
+// END_INCLUDE
