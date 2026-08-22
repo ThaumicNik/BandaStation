@@ -40103,7 +40103,7 @@
 	color = "grey"
 	},
 /obj/structure/cable,
-/turf/open/misc/snow/avangarde,
+/turf/open/floor/pod/light,
 /area/awaymission/avangarde17/outside/mountains)
 "pfu" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/general/hidden{
@@ -64016,7 +64016,7 @@
 /obj/structure/fake_stairs/directional/south{
 	color = "grey"
 	},
-/turf/open/misc/snow/avangarde,
+/turf/open/floor/pod/light,
 /area/awaymission/avangarde17/outside/mountains)
 "xLP" = (
 /obj/structure/cable,
@@ -153898,7 +153898,7 @@ nfl
 nfl
 nfl
 nfl
-vkD
+ssI
 vkD
 nfl
 qUN
