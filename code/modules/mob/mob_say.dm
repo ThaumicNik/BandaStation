@@ -188,7 +188,7 @@ GAME_VERB(/mob, me_verb, VERB_ME, null)
 	message = copytext(message, customsaypos + 1)
 	if (!message)
 		mods[MODE_CUSTOM_SAY_ERASE_INPUT] = TRUE
-		// message = "an interesting thing to say" // BANDASTATION REMOVAL
+		message = "..." // BANDASTATION EDIT - TTS (Replacing the "an interesting thing to say" with "..." so that it is not voiced by TTS)
 	return message
 /**
  * Extracts and cleans message of any extenstions at the begining of the message
@@ -223,14 +223,14 @@ GAME_VERB(/mob, me_verb, VERB_ME, null)
 			mods[RADIO_EXTENSION] = GLOB.department_radio_keys[mods[RADIO_KEY]]
 			chop_to = length(key) + 2
 		else if(key == "," && !mods[LANGUAGE_EXTENSION])
-			for(var/ld in GLOB.all_languages)
-				var/datum/language/LD = ld
-				if(initial(LD.key) == message[1 + length(message[1])])
+			for(var/datum/language/LD as anything in GLOB.all_languages)
+				var/lang_key = LD::key
+				if(lang_key && (lang_key == message[1 + length(message[1])]))
 					// No, you cannot speak in xenocommon just because you know the key
 					if(!can_speak_language(LD))
 						return message
 					mods[LANGUAGE_EXTENSION] = LD
-					chop_to = length(key) + length(initial(LD.key)) + 1
+					chop_to = length(key) + length(lang_key) + 1
 			if(!mods[LANGUAGE_EXTENSION])
 				return message
 		else
