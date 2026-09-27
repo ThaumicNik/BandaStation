@@ -187,22 +187,6 @@ GLOBAL_LIST_EMPTY_TYPED(transmitters, /obj/structure/transmitter)
 			end_call(forced = TRUE, timeout = TRUE)
 			update_icon()
 
-/obj/structure/transmitter/proc/get_voice_description(mob/living/carbon/human/speaker)
-	if(!ishuman(speaker))
-		return "Приглушённый голос"
-
-	var/gender_desc = ""
-
-	switch(speaker.physique)
-		if(MALE)
-			gender_desc = "Мужской"
-		if(FEMALE)
-			gender_desc = "Женский"
-		else
-			gender_desc = "Приглушённый"
-
-	return "[gender_desc] голос"
-
 /obj/structure/transmitter/proc/send_commsig(commsig, data)
 	if(!GLOB.central_telephone_exchange)
 		return

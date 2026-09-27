@@ -1,8 +1,8 @@
 // MARK: Turf
 // Турфы - не используются, может передумаем
-/turf/open/misc/asteroid/moon/cold
+/turf/open/misc/asteroid/moon/avangarde
 	planetary_atmos = TRUE
-	initial_gas_mix = COLD_ATMOS
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
 
 /turf/open/misc/snow/avangarde
 	slowdown = 1
@@ -15,9 +15,8 @@
 	return TRUE
 
 /turf/closed/mineral/snowmountain/avangarde
-	baseturfs = /turf/open/misc/asteroid/moon
+	baseturfs = /turf/open/misc/asteroid/moon/avangarde
 	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
-	turf_type = /turf/open/misc/asteroid/moon
 	defer_change = TRUE
 
 /turf/open/floor/asphalt/avangarde
@@ -29,9 +28,8 @@
 	return TRUE
 
 /turf/closed/mineral/snowmountain/cavern/avangarde
-	baseturfs = /turf/open/misc/asteroid/moon
+	baseturfs = /turf/open/misc/asteroid/moon/avangarde
 	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
-	turf_type = /turf/open/misc/asteroid/moon
 	defer_change = TRUE
 
 /turf/closed/indestructible/rock/avangarde
@@ -43,8 +41,7 @@
 	color = "#4b4b4b"
 
 /turf/closed/mineral/random/snow/avangarde
-	turf_type = /turf/open/misc/asteroid/moon
-	baseturfs = /turf/open/misc/asteroid/moon
+	baseturfs = /turf/open/misc/asteroid/moon/avangarde
 	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
 	exposure_based = FALSE
 	mineral_chance = 15
