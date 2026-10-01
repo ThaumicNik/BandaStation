@@ -1,0 +1,7 @@
+#include "_ambitions.dm"
+#include "code/ambitions.dm"
+#include "code/ambition_templates.dm"
+#include "code/ambition_content.dm"
+#include "code/ambition_jobs.dm"
+#include "code/ambition_admin.dm"
+#include "code/ambition_admin_pool.dm"

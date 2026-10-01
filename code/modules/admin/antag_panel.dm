@@ -110,7 +110,9 @@ GLOBAL_VAR(antag_prototypes)
 	var/out = "<B>[name]</B>[(current && (current.real_name != name))?" (as [current.real_name])":""]<br>"
 	out += "Mind currently owned by key: [key] [active?"(synced)":"(not synced)"]<br>"
 	out += "Assigned role: [job_title_ru(assigned_role.title)]. <a href='byond://?src=[REF(src)];role_edit=1'>Edit</a><br>"
-	out += "<a href='byond://?_src_=holder;[HrefToken()];check_teams=1'>Show Teams</a><br><br>"
+	out += "<a href='byond://?_src_=holder;[HrefToken()];check_teams=1'>Show Teams</a>"
+	out += get_ambitions_admin_link() // BANDASTATION ADD - Ambitions
+	out += "<br><br>"
 
 	var/special_statuses = get_special_roles() | get_special_statuses()
 	if(length(special_statuses))

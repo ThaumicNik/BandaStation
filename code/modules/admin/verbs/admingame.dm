@@ -99,6 +99,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(show_player_panel, R_ADMIN, "Show Player Panel", /m
 
 	body += "<br><br>"
 	body += "<A href='byond://?_src_=holder;[HrefToken()];traitor=[REF(player)]'>Traitor panel</A> | "
+	if(player.mind) // BANDASTATION ADD - Ambitions
+		body += "<A href='byond://?_src_=holder;[HrefToken()];admin_ambitions=[REF(player.mind)]'>Ambitions</A> | "
 	body += "<A href='byond://?_src_=holder;[HrefToken()];narrateto=[REF(player)]'>Narrate to</A> | "
 	body += "<A href='byond://?_src_=holder;[HrefToken()];subtlemessage=[REF(player)]'>Subtle message</A> | "
 	body += "<A href='byond://?_src_=holder;[HrefToken()];playsoundto=[REF(player)]'>Play sound to</A> | "
